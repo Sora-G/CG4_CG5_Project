@@ -33,13 +33,22 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-	//行列を定数バッファに転送
+	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 
 	for (Particle* particle : particles_) {
-		//パーティクルの更新
-		particle->Update(); 
+		// パーティクルの更新
+		particle->Update();
 	}
+
+	// 終了フラグの立ったパーティクルの削除
+	particles_.remove_if([](Particle* particle) {
+		if (particle->IsFinished()) {
+			delete particle;
+			return true;
+		}
+		return false;
+	});
 }
 
 void GameScene::Draw() {
