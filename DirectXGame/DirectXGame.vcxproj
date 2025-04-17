@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MathUtilityForText.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="WorldTransformEX.cpp" />
   </ItemGroup>
@@ -188,6 +189,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="MathUtilityForText.h" />
     <ClInclude Include="Particle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

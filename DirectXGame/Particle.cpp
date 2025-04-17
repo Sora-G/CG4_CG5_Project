@@ -1,4 +1,5 @@
 #include "Particle.h"
+#include "MathUtilityForText.h"
 #include <algorithm>
 
 using namespace KamataEngine;

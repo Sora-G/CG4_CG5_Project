@@ -1,5 +1,4 @@
 #pragma once
-
 #include <KamataEngine.h>
 
 class Particle 
@@ -20,9 +19,6 @@ public://メンバ関数
 
 	//デスフラグのゲッター
 	bool IsFinished() { return isFinished_; }
-
-	//float型のランダム関数(-1.0f~1.0f)
-	float RandomFloat() { return static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f; }
 
 private: // メンバ変数
 	KamataEngine::WorldTransform worldTransform_;	//ワールド変換データ
