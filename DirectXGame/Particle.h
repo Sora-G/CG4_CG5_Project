@@ -8,7 +8,7 @@ public://メンバ関数
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(KamataEngine::Model* model);
+	void Initialize(KamataEngine::Model* model,KamataEngine::Vector3 position);
 	/// <summary>
 	/// 更新処理
 	/// </summary>
