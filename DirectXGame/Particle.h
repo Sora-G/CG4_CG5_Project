@@ -21,4 +21,6 @@ public://メンバ関数
 private: // メンバ変数
 	KamataEngine::WorldTransform worldTransform_;//ワールド変換データ
 	KamataEngine::Model* model_ = nullptr;//モデル
+	KamataEngine::ObjectColor objectColor_;//色変更オブジェクト
+	KamataEngine::Vector4 color_;//色の数値
 };
