@@ -22,8 +22,8 @@ public: // メンバ関数
 	void Draw();
 
 private: // メンバ変数
-	KamataEngine::WorldTransform worldTransform_;//ワールド変換データ
-	KamataEngine::Camera camera_;//カメラ
-	KamataEngine::Model* modelParticle_ = nullptr;//パーティクル3Dモデルデータ
-	std::list<Particle*> particles_;//パーティクル
+	KamataEngine::WorldTransform worldTransform_;	//ワールド変換データ
+	KamataEngine::Camera camera_;					//カメラ
+	KamataEngine::Model* modelParticle_ = nullptr;	//パーティクル3Dモデルデータ
+	std::list<Particle*> particles_;				//パーティクル
 };
