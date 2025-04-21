@@ -89,6 +89,23 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	}
 
 
+	//PixelShaderをCompilerする----------
+	//ピクセルシェーダーの読み込みとコンパイル
+	std::wstring psFile = L"Resource/shaders/TestPS.hsls";
+	hr = D3DCompileFromFile(
+		psFile.c_str(), 
+		nullptr, 
+		D3D_COMPILE_STANDARD_FILE_INCLUDE, 
+		"main", "ps_5_0", 
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 
+		0, &psBlob, &errorBlob);
+	if (FAILED(hr)) {
+		DebugText::GetInstance()->ConsolePrintf(std::system_category().message(hr).c_str());
+		if (errorBlob) {
+			DebugText::GetInstance()->ConsolePrintf(reinterpret_cast<char*>(errorBlob->GetBufferPointer()));
+		}
+		assert(false);
+	}
 
 
 
