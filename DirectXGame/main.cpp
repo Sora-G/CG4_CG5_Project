@@ -56,6 +56,13 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 
 
+	//RasterizerStateの設定を行う----------
+	D3D12_RASTERIZER_DESC rasterizerDesc{};
+	//裏面(反時計回り)をカリングする
+	rasterizerDesc.CullMode = D3D12_CULL_MODE_BACK;
+	//塗りつぶしモードをソリッドにする(ワイヤーフレームなら　D3D12_FILL_MODE_WIREFRAME)
+	rasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
+
 
 	// メインループ
 	while (true) {
