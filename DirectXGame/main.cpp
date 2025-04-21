@@ -154,6 +154,16 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	assert(SUCCEEDED(hr));//上手く行かなかった時は起動できない
 
 
+	//VertexBufferViewを生成する----------
+	D3D12_VERTEX_BUFFER_VIEW vertexBufferView{};
+	//リソースの先端からアドレスを使う
+	vertexBufferView.BufferLocation = vertexResource->GetGPUVirtualAddress();
+	//使用するリソースのサイズは頂点３つ分のサイズ
+	vertexBufferView.SizeInBytes = sizeof(Vector4) * 3;
+	//１つの頂点のサイズ
+	vertexBufferView.StrideInBytes = sizeof(Vector4);
+
+
 
 	// メインループ
 	while (true) {
