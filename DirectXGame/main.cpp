@@ -164,6 +164,16 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	vertexBufferView.StrideInBytes = sizeof(Vector4);
 
 
+	//Resourceにデータを書き込む----------
+	//頂点リソースにデータを書き込む
+	Vector4* vertexData = nullptr;
+	vertexResource->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
+	vertexData[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
+	vertexData[1] = {0.0f, 0.5f, 0.0f, 1.0f};
+	vertexData[2] = {0.5f, -0.5f, 0.0f, 1.0f};
+	//頂点リソースのマップを解除する
+	vertexResource->Unmap(0, nullptr);
+
 
 	// メインループ
 	while (true) {
