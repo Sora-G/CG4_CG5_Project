@@ -186,6 +186,16 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		dxCommon->PreDraw();
 		// 描画処理はここから
 
+		//コマンドを積む
+		commandList->SetGraphicsRootSignature(rootSignature);
+		commandList->SetPipelineState(graphicsPipelineState);
+		commandList->IASetVertexBuffers(0, 1, &vertexBufferView);
+		//トポロジの設定
+		commandList->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		//頂点数、インデックス数、インデックスの開始位置、インデックスのオフセット
+		commandList->DrawInstanced(3, 1, 0, 0);
+
+
 		// 描画終了
 		dxCommon->PostDraw();
 	}
