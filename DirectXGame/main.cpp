@@ -1,5 +1,6 @@
 #include "KamataEngine.h"
 #include <Windows.h>
+#include <d3dcompiler.h>
 
 using namespace KamataEngine;
 
@@ -62,6 +63,34 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	rasterizerDesc.CullMode = D3D12_CULL_MODE_BACK;
 	//塗りつぶしモードをソリッドにする(ワイヤーフレームなら　D3D12_FILL_MODE_WIREFRAME)
 	rasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
+
+
+	//VertexShaderをCompileする----------
+	//コンパイル済みのShader、エラー情報の格納場所の用意
+	ID3DBlob* vsBlob = nullptr;//頂点シェーダーオブジェクト
+	ID3DBlob* psBlob = nullptr;//ピクセルシェーダーオブジェクト
+	ID3DBlob* errorBlob = nullptr;//エラーオブジェクト
+
+	//頂点シェーダーの読み込みとコンパイル
+	std::wstring vsFile = L"Resource/shaders/TestVS.hlsl";
+	hr = D3DCompileFromFile(
+		vsFile.c_str(), 
+		nullptr, 
+		D3D_COMPILE_STANDARD_FILE_INCLUDE, 
+		"main", "vs_5_0", 
+		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 
+		0, &vsBlob, &errorBlob);
+	if (FAILED(hr)) {
+		DebugText::GetInstance()->ConsolePrintf(std::system_category().message(hr).c_str());
+		if (errorBlob) {
+			DebugText::GetInstance()->ConsolePrintf(reinterpret_cast<char*>(errorBlob->GetBufferPointer()));
+		}
+		assert(false);
+	}
+
+
+
+
 
 
 	// メインループ
