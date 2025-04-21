@@ -11,6 +11,16 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// DirectXCommonのインスタンスを取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
 
+	//DirectXCommonクラスのが管理している、ウィンドウの幅と高さの取得
+	int32_t w = dxCommon->GetBackBufferWidth();
+	int32_t h = dxCommon->GetBackBufferHeight();
+	DebugText::GetInstance()->ConsolePrintf(std::format("width: {}, height: {}\n", w, h).c_str());
+
+	//DirectXCommonクラスが管理している、コマンドリストの取得
+	ID3D12GraphicsCommandList* commandList = dxCommon->GetCommandList();
+
+
+
 	// メインループ
 	while (true) {
 		// エンジンの更新
