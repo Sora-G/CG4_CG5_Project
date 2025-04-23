@@ -4,6 +4,17 @@
 
 using namespace KamataEngine;
 
+
+//シェーダーコンパイル関数
+//filePath : シェーダーファイルのパス
+//shaderModel : シェーダーモデル
+ID3DBlob* CompileShader(const std::wstring& filePath, const std::string& shaderModel) { 
+	Microsoft::WRL::ComPtr<ID3DBlob> shaderBlob = nullptr;
+	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;
+}
+
+
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// エンジンの初期化
