@@ -1,10 +1,9 @@
 #include "KamataEngine.h"
+#include "Shader.h"
 #include <Windows.h>
 #include <d3dcompiler.h>
 
 using namespace KamataEngine;
-
-ID3DBlob* CompileShader(const std::wstring& filePath, const std::string& shaderModel);
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
@@ -69,10 +68,14 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	//VertexShaderをCompileする----------
 	//コンパイル済みのShader、エラー情報の格納場所の用意
-	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob = CompileShader(L"Resources/shaders/TestVS.hlsl", "vs_5_0"); // 頂点シェーダーオブジェクト
-	assert(vsBlob != nullptr);
-	Microsoft::WRL::ComPtr<ID3DBlob> psBlob = CompileShader(L"Resources/shaders/TestPS.hlsl", "ps_5_0"); // ピクセルシェーダーオブジェクト
-	assert(psBlob != nullptr);
+	//頂点シェーダーの読み込みとコンパイル
+	Shader vs;
+	vs.Load(L"Resources/shaders/TestVS.hlsl", "vs_5_0");
+	assert(vs.GetBlob() != nullptr);
+	//ピクセルシェーダーの読み込みとコンパイル
+	Shader ps;
+	ps.Load(L"Resources/shaders/TestPS.hlsl", "ps_5_0");
+	assert(ps.GetBlob() != nullptr);
 	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob = nullptr;//エラーオブジェクト
 
 	//PSOを生成する----------
@@ -80,8 +83,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
 	graphicsPipelineStateDesc.pRootSignature = rootSignature.Get();//RootSignature
 	graphicsPipelineStateDesc.InputLayout = inputLayoutDesc;//InputLayout
-	graphicsPipelineStateDesc.VS = {vsBlob->GetBufferPointer(), vsBlob->GetBufferSize()};//VertexShader
-	graphicsPipelineStateDesc.PS = {psBlob->GetBufferPointer(), psBlob->GetBufferSize()};//PixelShader
+	graphicsPipelineStateDesc.VS = {vs.GetBlob()->GetBufferPointer(), vs.GetBlob()->GetBufferSize()}; // VertexShader
+	graphicsPipelineStateDesc.PS = {ps.GetBlob()->GetBufferPointer(), ps.GetBlob()->GetBufferSize()}; // PixelShader
 	graphicsPipelineStateDesc.BlendState = blendDesc;//BlendDesc
 	graphicsPipelineStateDesc.RasterizerState = rasterizerDesc;//Rasterizer
 	//書き込むRTVの情報
@@ -171,32 +174,3 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	return 0;
 }
-
-
-//シェーダーコンパイル関数
-//filePath		:	シェーダーファイルのパス
-//shaderModel	:	シェーダーモデル
-ID3DBlob* CompileShader(const std::wstring& filePath, const std::string& shaderModel) { 
-	ID3DBlob* shaderBlob = nullptr;//ComPtrにするとエラー
-	ID3DBlob* errorBlob = nullptr;
-
-	HRESULT hr = D3DCompileFromFile(
-		filePath.c_str(), 
-		nullptr, 
-		D3D_COMPILE_STANDARD_FILE_INCLUDE,				//インクルード可能にする
-		"main", shaderModel.c_str(),			//エントリーポイント名、シェーダーモデル指定
-		D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, //デバッグ用設定
-		0, &shaderBlob, &errorBlob);
-
-	//エラー発生時に実行を止める
-	if (FAILED(hr)) {
-		if (errorBlob) {
-			OutputDebugStringA(reinterpret_cast<char*>(errorBlob->GetBufferPointer()));
-			errorBlob->Release();
-		}
-		assert(false);
-	}
-	return shaderBlob;
-}
-
-
