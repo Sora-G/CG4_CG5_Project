@@ -1,13 +1,16 @@
 #include "Effect.h"
 
-void Effect::Initialize(KamataEngine::Model* model) {
+using namespace KamataEngine;
+
+void Effect::Initialize(Model* model, Vector3 scale, Vector3 rotate, Vector3 position) {
 	// NULLポインタチェック
 	assert(model);
 	// 引数で受け取ったデータをメンバ変数に代入
 	model_ = model;
-
-	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
-	worldTransform_.rotation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_.scale_ = scale;
+	worldTransform_.rotation_ = rotate;
+	worldTransform_.translation_ = position;
+	
 	worldTransform_.Initialize();
 }
 
