@@ -9,8 +9,8 @@ void WorldTransform::UpdateMatrix() {
 
 	// 回転行列の生成
 	Matrix4x4 matRotX = MakeRotateXMatrix(rotation_.x);
-	Matrix4x4 matRotY = MakeRotateXMatrix(rotation_.y);
-	Matrix4x4 matRotZ = MakeRotateXMatrix(rotation_.z);
+	Matrix4x4 matRotY = MakeRotateYMatrix(rotation_.y);
+	Matrix4x4 matRotZ = MakeRotateZMatrix(rotation_.z);
 	Matrix4x4 matRot = matRotZ * matRotX * matRotY;
 
 	// 平行移動行列の生成
