@@ -12,8 +12,6 @@ void Effect::Initialize(KamataEngine::Model* model) {
 void Effect::Update() {
 	// 行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
-
-	worldTransform_.rotation_.x += 0.01f;
 }
 
 void Effect::Draw(KamataEngine::Camera& camera) {
