@@ -4,8 +4,8 @@ using namespace KamataEngine;
 
 GameScene::~GameScene() {
 	//解放処理
-	delete modelParticle_;
-	delete particle_;
+	delete modelEffect_;
+	delete effect_;
 }
 
 void GameScene::Initialize() {
@@ -13,18 +13,19 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	//カメラの初期化
 	camera_.Initialize();
-	//3Dモデルデータの生成
-	modelParticle_ = Model::CreateSphere(4, 4);
-	//パーティクルの生成＆初期化
-	particle_ = new Particle();
-	particle_->Initialize(modelParticle_);
+
+	// 3Dモデルデータの生成
+	modelEffect_ = Model::CreateFromOBJ("plane");
+	// エフェクトの生成＆初期化
+	effect_ = new Effect();
+	effect_->Initialize(modelEffect_);
 }
 
 void GameScene::Update() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 	//パーティクルの更新
-	particle_->Update(); 
+	effect_->Update(); 
 }
 
 void GameScene::Draw() {
@@ -35,7 +36,7 @@ void GameScene::Draw() {
 	//--ここから3Dモデルの描画処理を書く--
 
 	// パーティクルの描画
-	particle_->Draw(camera_);
+	effect_->Draw(camera_);
 
 	// 3Dモデル描画後処理
 	Model::PostDraw();
