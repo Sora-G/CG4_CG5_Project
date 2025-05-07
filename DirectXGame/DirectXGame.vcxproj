@@ -110,6 +110,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="WorldTransformEX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -187,6 +188,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\External\KamataEngine\include\3d\WorldTransform.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Particle.h" />
