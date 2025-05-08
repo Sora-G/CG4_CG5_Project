@@ -4,7 +4,7 @@ using namespace KamataEngine;
 
 void Particle::Initialize(Model* model) {
 	//NULLポインタチェック
-	assert(model);
+	//assert(model);
 	//引数で受け取ったデータをメンバ変数に代入
 	model_ = model;
 
