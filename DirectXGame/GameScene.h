@@ -21,10 +21,15 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// エフェクト発生
+	/// </summary>
+	void EffectBorn(KamataEngine::Vector3 position);
+
 private: // メンバ変数
 	KamataEngine::WorldTransform worldTransform_;//ワールド変換データ
 	KamataEngine::Camera camera_;//カメラ
 
 	KamataEngine::Model* modelEffect_ = nullptr;
-	Effect* effect_ = nullptr;
+	std::list<Effect*> effects_;
 };
