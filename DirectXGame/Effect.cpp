@@ -24,6 +24,8 @@ void Effect::Update() {
 	// 行列を定数バッファに転送
 	worldTransform_.UpdateMatrix();
 
+	//worldTransform_.translation_.x += 1.0f;
+	//worldTransform_.translation_.y -= 0.5f;
 	worldTransform_.rotation_.z += 1.57f;
 
 	//色変更オブジェクトに色の数値を設定する
