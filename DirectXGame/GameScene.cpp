@@ -38,7 +38,7 @@ void GameScene::Update() {
 	
 	if (rand() % 6 == 0) {
 		//発生源
-		Vector3 effectPosition = {dist(randomEngine) * 100.0f, dist(randomEngine) * 40.0f, 0.0f};
+		Vector3 effectPosition = {dist(randomEngine) * 110.0f, dist(randomEngine) * 40.0f, 0.0f};
 		//エフェクトの発生
 		EffectBorn(effectPosition);
 	}
