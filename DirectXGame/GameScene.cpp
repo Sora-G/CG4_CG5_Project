@@ -7,7 +7,7 @@ std::random_device seedGenerator;
 std::mt19937 randomEngine(seedGenerator());
 std::uniform_real_distribution<float> dist(-1.0f, 1.0f);//-1.0~1.0
 std::uniform_real_distribution<float> distScale(0.5f, 1.5f); //0.5~1.0
-std::uniform_real_distribution<float> distColor(0.7f, 1.0f); //0.0~1.0
+std::uniform_real_distribution<float> distColor(0.0f, 0.5f); //0.0~1.0
 
 
 using namespace KamataEngine;
@@ -36,9 +36,9 @@ void GameScene::Update() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
 	
-	if (rand() % 6 == 0) {
+	if (rand() % 30 == 0) {
 		//発生源
-		Vector3 effectPosition = {dist(randomEngine) * 100.0f, dist(randomEngine) * 40.0f, 0.0f};
+		Vector3 effectPosition = {dist(randomEngine) * 50.0f, dist(randomEngine) * 40.0f, 0.0f};
 		//エフェクトの発生
 		EffectBorn(effectPosition);
 	}
@@ -75,10 +75,10 @@ void GameScene::Draw() {
 
 void GameScene::EffectBorn(Vector3 position) {
 	// エフェクトの生成＆初期化
-	for (int i = 0; i < 1; i++) {
-		Vector3 effectScale = {distScale(randomEngine), distScale(randomEngine) * 5.0f, 1.0f};
+	for (int i = 0; i < 3; i++) {
+		Vector3 effectScale = {1.0f, distScale(randomEngine) * 10.0f, 1.0f};
 		Vector3 effectRotate = {0.0f, 0.0f, dist(randomEngine) * (float(M_PI) * 2.0f)};
-		Vector4 effectColor = {distColor(randomEngine), distColor(randomEngine), 0.3f, 1.0f};
+		Vector4 effectColor = {distColor(randomEngine), 0.0f, 0.0f, 1.0f};
 		//生成
 		Effect* effect = new Effect();
 		//初期化

@@ -47,7 +47,7 @@ void Effect::Update() {
 	//フェード処理
 	color_.w = std::clamp(1.0f - counter_ / kDuration_, 0.0f, 1.0f);
 
-	worldTransform_.scale_.x = std::clamp(1.0f - counter_ / kDuration_, 0.0f, 0.2f);
+	worldTransform_.scale_.x = std::clamp(1.0f - counter_ / kDuration_, 0.0f, 0.5f);
 }
 
 void Effect::Draw(KamataEngine::Camera& camera) {
