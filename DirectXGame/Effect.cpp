@@ -5,7 +5,7 @@ using namespace KamataEngine;
 
 void Effect::Initialize(Model* model, Vector3 scale, Vector3 rotate, Vector3 position,Vector4 color) {
 	// NULLポインタチェック
-	assert(model);
+	//assert(model);
 	// 引数で受け取ったデータをメンバ変数に代入
 	model_ = model;
 	worldTransform_.scale_ = scale;
