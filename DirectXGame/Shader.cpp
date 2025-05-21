@@ -91,9 +91,32 @@ void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderMod
 	);
 	//コンパイルエラーではなく
 	assert(SUCCEEDED(hr));
+
+	//3.警告・エラーが出ていないか確認する
+	IDxcBlobUtf8* shaderError = nullptr;
+	IDxcBlobWide* nameBlob = nullptr;
+	shaderResult->GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(&shaderError), &nameBlob);
+	if (shaderError != nullptr && shaderError->GetStringLength() != 0) {
+		OutputDebugStringA(shaderError->GetStringPointer());
+		assert(false);
+	}
+
+	//4.Compile結果を受け取る
+	IDxcBlob* shaderBlob = nullptr;
+	hr = shaderResult->GetOutput(DXC_OUT_OBJECT, IID_PPV_ARGS(&shaderBlob), &nameBlob);
+	assert(SUCCEEDED(hr));
+
+	//使わないリソースを解放
+	shaderSource->Release();
+	shaderResult->Release();
+
+	//実行用のバイナリを取っておく
+	dxcBlob_ = shaderBlob;
 }
 
 ID3DBlob* Shader::GetBlob() { return blob_; }
+
+IDxcBlob* Shader::GetDxcBlob() { return dxcBlob_; }
 
 Shader::Shader() {}
 
@@ -101,5 +124,10 @@ Shader::~Shader() {
 	if (blob_ != nullptr) {
 		blob_->Release();
 		blob_ = nullptr;
+	}
+
+	if (dxcBlob_ != nullptr) {
+		dxcBlob_->Release();
+		dxcBlob_ = nullptr;
 	}
 }
