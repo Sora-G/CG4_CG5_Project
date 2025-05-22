@@ -21,6 +21,11 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// パーティクルの発生
+	/// </summary>
+	void ParticleBorn(KamataEngine::Vector3 position);
+
 private: // メンバ変数
 	KamataEngine::WorldTransform worldTransform_;	//ワールド変換データ
 	KamataEngine::Camera camera_;					//カメラ
