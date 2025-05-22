@@ -76,9 +76,9 @@ void GameScene::Draw() {
 void GameScene::EffectBorn(Vector3 position) {
 	// エフェクトの生成＆初期化
 	for (int i = 0; i < 1; i++) {
-		Vector3 effectScale = {distScale(randomEngine), distScale(randomEngine) * 5.0f, 1.0f};
+		Vector3 effectScale = {1.0f, 1.0f, 1.0f};
 		Vector3 effectRotate = {0.0f, 0.0f, dist(randomEngine) * (float(M_PI) * 2.0f)};
-		Vector4 effectColor = {distColor(randomEngine), distColor(randomEngine), 0.3f, 1.0f};
+		Vector4 effectColor = {1.0f, 1.0f, 1.0f, 1.0f};
 		//生成
 		Effect* effect = new Effect();
 		//初期化

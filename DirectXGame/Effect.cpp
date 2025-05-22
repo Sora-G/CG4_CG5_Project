@@ -24,8 +24,6 @@ void Effect::Update() {
 	// 行列を定数バッファに転送
 	worldTransform_.UpdateMatrix();
 
-	worldTransform_.rotation_.z += 1.57f;
-
 	//色変更オブジェクトに色の数値を設定する
 	objectColor_.SetColor(color_);
 
@@ -46,8 +44,6 @@ void Effect::Update() {
 
 	//フェード処理
 	color_.w = std::clamp(1.0f - counter_ / kDuration_, 0.0f, 1.0f);
-
-	worldTransform_.scale_.x = std::clamp(1.0f - counter_ / kDuration_, 0.0f, 0.2f);
 }
 
 void Effect::Draw(KamataEngine::Camera& camera) {
