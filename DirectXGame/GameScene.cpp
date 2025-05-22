@@ -20,7 +20,6 @@ GameScene::~GameScene() {
 void GameScene::Initialize() {
 	//ワールド変換データの初期化
 	worldTransform_.Initialize();
-	camera_.translation_.z = -100;
 	//カメラの初期化
 	camera_.Initialize();
 	//3Dモデルデータの生成
