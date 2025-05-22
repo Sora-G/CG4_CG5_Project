@@ -8,7 +8,7 @@ public://メンバ関数
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(KamataEngine::Model* model,KamataEngine::Vector3 position);
+	void Initialize(KamataEngine::Model* model, KamataEngine::Vector3 position, KamataEngine::Vector3 velocity);
 	/// <summary>
 	/// 更新処理
 	/// </summary>
@@ -29,7 +29,7 @@ private: // メンバ変数
 	KamataEngine::Model* model_ = nullptr;			//モデル
 	KamataEngine::ObjectColor objectColor_;			//色変更オブジェクト
 	KamataEngine::Vector4 color_;					//色の数値
-	KamataEngine::Vector3 speed_;					//移動速度
+	KamataEngine::Vector3 velocity_;				//移動速度
 	bool isFinished_ = false;						//終了フラグ
 	float counter_ = 0.0f;							//経過時間カウント
 	const float kDuration = 1.0f;					//存続時間(消滅までの時間)<秒/s>

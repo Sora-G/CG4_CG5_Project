@@ -1,6 +1,12 @@
 #include "GameScene.h"
+#include <random>
+
+std::random_device seedGenerator;
+std::mt19937 randomEngine(seedGenerator());
+std::uniform_real_distribution<float> distribution(-1.0f, 1.0f);
 
 using namespace KamataEngine;
+using namespace MathUtility;
 
 GameScene::~GameScene() {
 	//解放処理
@@ -14,6 +20,7 @@ GameScene::~GameScene() {
 void GameScene::Initialize() {
 	//ワールド変換データの初期化
 	worldTransform_.Initialize();
+	camera_.translation_.z = -100;
 	//カメラの初期化
 	camera_.Initialize();
 	//3Dモデルデータの生成
@@ -23,9 +30,14 @@ void GameScene::Initialize() {
 		//生成
 		Particle* particle = new Particle();
 		//位置
-		Vector3 position = {0.5f * i, 0.0f, 0.0f};
+		Vector3 position = {0.0f, 0.0f, 0.0f};
+		//速度
+		Vector3 velocity = {distribution(randomEngine), distribution(randomEngine), 0.0f};
+		Normalize(velocity);
+		velocity *= distribution(randomEngine);
+		velocity *= 0.1f;
 		//パーティクルの生成＆初期化
-		particle->Initialize(modelParticle_, position);
+		particle->Initialize(modelParticle_, position, velocity);
 		//リストに追加
 		particles_.push_back(particle);
 	}
