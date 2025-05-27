@@ -13,6 +13,7 @@ public:
 
 	//生成したコンパイル済みデータを取得する
 	ID3DBlob* GetBlob();
+	IDxcBlob* GetDxcBlob();
 
 	//コンストラクタ
 	Shader();
@@ -21,4 +22,6 @@ public:
 
 private:
 	ID3DBlob* blob_ = nullptr;	//コンストラクタで初期化しない
+	
+	IDxcBlob* dxcBlob_ = nullptr;//コンパイル済みのシェーダーデータ
 };
