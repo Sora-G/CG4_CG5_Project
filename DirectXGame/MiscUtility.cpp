@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <string>
 
+//string=>wstring
 std::wstring ConvertString(const std::string& str) { 
 	if (str.empty()) {
 		return std::wstring();
@@ -17,6 +18,7 @@ std::wstring ConvertString(const std::string& str) {
 	return result;
 }
 
+//wstring=>string
 std::string ConvertString(const std::wstring& str) {
 	if (str.empty()) {
 		return std::string();
