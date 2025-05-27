@@ -36,6 +36,21 @@ void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderMod
 	static IDxcIncludeHandler* includeHandler = nullptr;
 
 	HRESULT hr;
+
+	if (dxcUtils == nullptr) {
+		hr = DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(&dxcUtils));
+		assert(SUCCEEDED(hr));
+	}
+
+	if (dxcCompiler == nullptr) {
+		hr = DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(&dxcCompiler));
+		assert(SUCCEEDED(hr));
+	}
+
+	if (includeHandler == nullptr) {
+		hr = dxcUtils->CreateDefaultIncludeHandler(&includeHandler);
+		assert(SUCCEEDED(hr));
+	}
 }
 
 ID3DBlob* Shader::GetBlob() { return blob_; }
