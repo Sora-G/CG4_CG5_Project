@@ -52,6 +52,7 @@ void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderMod
 		assert(SUCCEEDED(hr));
 	}
 
+
 	//1.hlslファイルを読み込む
 	IDxcBlobEncoding* shaderSource = nullptr;
 	hr = dxcUtils->LoadFile(filePath.c_str(), nullptr, &shaderSource);
@@ -62,6 +63,21 @@ void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderMod
 	shaderSourceBuffer.Ptr = shaderSource->GetBufferPointer();
 	shaderSourceBuffer.Size = shaderSource->GetBufferSize();
 	shaderSourceBuffer.Encoding = DXC_CP_UTF8;
+
+
+	//2.Compileする
+	//	Compileに必要なコンパイルオプションの準備
+	LPCWSTR arguments[] = {
+	    filePath.c_str(), //コンパイル対象のhlslファイル名
+		L"-E", 
+		L"main", //エントリーポイントの指定
+		L"-T", 
+		shaderModel.c_str(), //ShaderProfileの設定
+		L"-Zi", 
+		L"-Qembed_debug", //デバッグ用の情報を埋め込む
+		L"-Od", //最適化を外しておく
+		L"-Zpr", //メモリレイアウトは行優先
+	};
 }
 
 ID3DBlob* Shader::GetBlob() { return blob_; }
