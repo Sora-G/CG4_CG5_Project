@@ -51,6 +51,17 @@ void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderMod
 		hr = dxcUtils->CreateDefaultIncludeHandler(&includeHandler);
 		assert(SUCCEEDED(hr));
 	}
+
+	//1.hlslファイルを読み込む
+	IDxcBlobEncoding* shaderSource = nullptr;
+	hr = dxcUtils->LoadFile(filePath.c_str(), nullptr, &shaderSource);
+	assert(SUCCEEDED(hr));
+
+	//読み込んだファイルの内容をDxcBufferに設定する
+	DxcBuffer shaderSourceBuffer{};
+	shaderSourceBuffer.Ptr = shaderSource->GetBufferPointer();
+	shaderSourceBuffer.Size = shaderSource->GetBufferSize();
+	shaderSourceBuffer.Encoding = DXC_CP_UTF8;
 }
 
 ID3DBlob* Shader::GetBlob() { return blob_; }
