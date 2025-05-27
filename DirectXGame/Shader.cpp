@@ -28,6 +28,16 @@ void Shader::Load(const std::wstring& filePath, const std::wstring& shaderModel)
 	blob_ = shaderBlob;
 }
 
+//シェーダファイルを読み込み、コンパイルする
+void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderModel) {
+	//DXCを初期化
+	static IDxcUtils* dxcUtils = nullptr;
+	static IDxcCompiler* dxcCompiler = nullptr;
+	static IDxcIncludeHandler* includeHandler = nullptr;
+
+	HRESULT hr;
+}
+
 ID3DBlob* Shader::GetBlob() { return blob_; }
 
 Shader::Shader() {}

@@ -4,6 +4,7 @@
 
 #include <d3dcompiler.h>
 #include <dxcapi.h>
+#pragma comment(lib, "dxcompiler.lib")
 
 class Shader {
 public:
