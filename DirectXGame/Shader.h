@@ -6,7 +6,7 @@
 class Shader {
 public:
 	//シェーダファイルを読み込み、コンパイル済みデータを生成する
-	void Load(const std::wstring& filePath, const std::string& shaderModel);
+	void Load(const std::wstring& filePath, const std::wstring& shaderModel);
 
 	//生成したコンパイル済みデータを取得する
 	ID3DBlob* GetBlob();

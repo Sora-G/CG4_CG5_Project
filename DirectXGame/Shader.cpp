@@ -2,7 +2,7 @@
 #include <d3dCompiler.h>
 #include <cassert>
 
-void Shader::Load(const std::wstring& filePath, const std::string& shaderModel) {
+void Shader::Load(const std::wstring& filePath, const std::wstring& shaderModel) {
 	ID3DBlob* shaderBlob = nullptr; // ComPtrにするとエラー
 	ID3DBlob* errorBlob = nullptr;
 
