@@ -78,6 +78,17 @@ void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderMod
 		L"-Od", //最適化を外しておく
 		L"-Zpr", //メモリレイアウトは行優先
 	};
+
+	//実際にShaderをコンパイルする
+	IDxcResult* shaderResult = nullptr;
+	hr = dxcCompiler->Compile(
+		&shaderSourceBuffer,
+		arguments, 
+		_countof(arguments),
+		includeHandler, 
+		IID_PPV_ARGS(&shaderResult)
+	);
+	assert(SUCCEEDED(hr));
 }
 
 ID3DBlob* Shader::GetBlob() { return blob_; }
