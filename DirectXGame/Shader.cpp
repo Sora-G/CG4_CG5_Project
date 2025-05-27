@@ -117,6 +117,8 @@ void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderMod
 
 ID3DBlob* Shader::GetBlob() { return blob_; }
 
+IDxcBlob* Shader::GetDxcBlob() { return dxcBlob_; }
+
 Shader::Shader() {}
 
 Shader::~Shader() {
