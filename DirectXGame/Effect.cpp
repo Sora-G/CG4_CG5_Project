@@ -1,5 +1,7 @@
 #include "Effect.h"
 #include <algorithm>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 using namespace KamataEngine;
 
@@ -23,6 +25,8 @@ void Effect::Initialize(Model* model, Vector3 scale, Vector3 rotate, Vector3 pos
 void Effect::Update() {
 	// 行列を定数バッファに転送
 	worldTransform_.UpdateMatrix();
+
+	worldTransform_.translation_.y += 0.1f;
 
 	//色変更オブジェクトに色の数値を設定する
 	objectColor_.SetColor(color_);
