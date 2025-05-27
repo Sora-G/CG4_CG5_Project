@@ -126,4 +126,8 @@ Shader::~Shader() {
 		blob_->Release();
 		blob_ = nullptr;
 	}
+	if (dxcBlob_ != nullptr) {
+		dxcBlob_->Release();
+		dxcBlob_ = nullptr;
+	}
 }
