@@ -32,7 +32,7 @@ void Shader::Load(const std::wstring& filePath, const std::wstring& shaderModel)
 void Shader::LoadDxc(const std::wstring& filePath, const std::wstring& shaderModel) {
 	//DXCを初期化
 	static IDxcUtils* dxcUtils = nullptr;
-	static IDxcCompiler* dxcCompiler = nullptr;
+	static IDxcCompiler3* dxcCompiler = nullptr;
 	static IDxcIncludeHandler* includeHandler = nullptr;
 
 	HRESULT hr;
