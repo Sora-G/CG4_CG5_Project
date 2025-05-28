@@ -161,7 +161,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		// 描画処理はここから
 
 		//コマンドを積む
-		commandList->SetGraphicsRootSignature(rootSignature.Get());
+		commandList->SetGraphicsRootSignature(rs.Get());
 		commandList->SetPipelineState(graphicsPipelineState.Get());
 		commandList->IASetVertexBuffers(0, 1, &vertexBufferView);
 		//トポロジの設定
