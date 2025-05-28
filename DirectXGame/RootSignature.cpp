@@ -30,11 +30,21 @@ void RootSignature::Create() {
 	hr = dxCommon->GetDevice()->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(&rootSignature));
 	assert(SUCCEEDED(hr));
 
+	//生成したRootSignatureをとっておく
 	rootSignature_ = rootSignature;
 }
 
-ID3D12RootSignature* RootSignature::Get() { return nullptr; }
+//生成したRootSignatureを返す
+ID3D12RootSignature* RootSignature::Get() { return rootSignature_.Get(); }
 
+//コンストラクタ
 RootSignature::RootSignature() {}
 
-RootSignature::~RootSignature() {}
+//デストラクタ
+RootSignature::~RootSignature() {
+	if (rootSignature_) {
+		rootSignature_->Release();
+		rootSignature_ = nullptr;
+	}
+
+}
