@@ -18,5 +18,5 @@ public:
 
 private:
 	ID3D12Resource* vertexBuffer_ = nullptr;//頂点バッファー
-	D3D12_VERTEX_BUFFER_VIEW* vertexBufferView_{};//頂点バッファービュー
+	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_{};//頂点バッファービュー
 };
