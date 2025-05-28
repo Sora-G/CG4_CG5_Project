@@ -1,6 +1,7 @@
 #pragma once
 
 #include <d3dx12.h>//ID3D12RootSignature
+#include <Windows.h>
 
 class RootSignature {
 public:
@@ -13,6 +14,6 @@ public:
 	~RootSignature();
 
 private:
-	ID3D12RootSignature* rootSignature_ = nullptr;
+	Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_ = nullptr;
 
 };
