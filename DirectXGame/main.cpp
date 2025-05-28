@@ -196,4 +196,26 @@ void SetupPipelineState(PipelineState& pipelineState, RootSignature& rs, Shader&
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
 	inputLayoutDesc.pInputElementDescs = inputElementDescs;
 	inputLayoutDesc.NumElements = _countof(inputElementDescs);
+
+
+	//BlendState
+	D3D12_BLEND_DESC blendDesc{};
+	//全ての色要素を書き込む
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
+
+	//RasterizerStateの設定を行う
+	D3D12_RASTERIZER_DESC rasterizerDesc{};
+	//裏面(反時計回り)をカリングする
+	rasterizerDesc.CullMode = D3D12_CULL_MODE_BACK;
+	//塗りつぶしモードをソリッドにする(ワイヤーフレームなら　D3D12_FILL_MODE_WIREFRAME)
+	rasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
+
+	//PSO(PiplineStateObject)の生成
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
+	graphicsPipelineStateDesc.pRootSignature = rs.Get();                                                    // RootSignature
+	graphicsPipelineStateDesc.InputLayout = inputLayoutDesc;                                                // InputLayout
+	graphicsPipelineStateDesc.VS = {vs.GetDxcBlob()->GetBufferPointer(), vs.GetDxcBlob()->GetBufferSize()}; // VertexShader
+	graphicsPipelineStateDesc.PS = {ps.GetDxcBlob()->GetBufferPointer(), ps.GetDxcBlob()->GetBufferSize()}; // PixelShader
+	graphicsPipelineStateDesc.BlendState = blendDesc;                                                       // BlendDesc
+	graphicsPipelineStateDesc.RasterizerState = rasterizerDesc;                                             // Rasterizer
 }
