@@ -14,6 +14,6 @@ public:
 	~RootSignature();
 
 private:
-	Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature_ = nullptr;
+	ID3D12RootSignature* rootSignature_ = nullptr;
 
 };
