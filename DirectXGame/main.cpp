@@ -197,7 +197,6 @@ void SetupPipelineState(PipelineState& pipelineState, RootSignature& rs, Shader&
 	inputLayoutDesc.pInputElementDescs = inputElementDescs;
 	inputLayoutDesc.NumElements = _countof(inputElementDescs);
 
-
 	//BlendState
 	D3D12_BLEND_DESC blendDesc{};
 	//全ての色要素を書き込む
@@ -218,4 +217,15 @@ void SetupPipelineState(PipelineState& pipelineState, RootSignature& rs, Shader&
 	graphicsPipelineStateDesc.PS = {ps.GetDxcBlob()->GetBufferPointer(), ps.GetDxcBlob()->GetBufferSize()}; // PixelShader
 	graphicsPipelineStateDesc.BlendState = blendDesc;                                                       // BlendDesc
 	graphicsPipelineStateDesc.RasterizerState = rasterizerDesc;                                             // Rasterizer
+	//書き込むRTVの情報
+	graphicsPipelineStateDesc.NumRenderTargets = 1; // １つのRTVに書き込む
+	graphicsPipelineStateDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+	//利用するトポロジ(形状)のタイプ。三角形
+	graphicsPipelineStateDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	//どのように画面に色を打ち込むかの設定
+	graphicsPipelineStateDesc.SampleDesc.Count = 1;
+	graphicsPipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
+
+	//PSOを生成する
+	pipelineState.Create(graphicsPipelineStateDesc);
 }
