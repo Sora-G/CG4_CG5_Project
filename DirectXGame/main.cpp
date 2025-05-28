@@ -1,7 +1,8 @@
-#include "KamataEngine.h"
-#include "Shader.h"
 #include <Windows.h>
 #include <d3dcompiler.h>
+#include "KamataEngine.h"
+#include "Shader.h"
+#include "RootSignature.h"
 
 using namespace KamataEngine;
 
@@ -23,20 +24,23 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 
 	//RootSignature作成----------
-	//構造体にデータを用意する
-	D3D12_ROOT_SIGNATURE_DESC descriptorRootSignature{};
-	descriptorRootSignature.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-	Microsoft::WRL::ComPtr<ID3DBlob> signatureBlob = nullptr;
-	Microsoft::WRL::ComPtr<ID3DBlob> errorBlog = nullptr;
-	HRESULT hr = D3D12SerializeRootSignature(&descriptorRootSignature, D3D_ROOT_SIGNATURE_VERSION_1, &signatureBlob, &errorBlog);
-	if (FAILED(hr)) {
-		DebugText::GetInstance()->ConsolePrintf(reinterpret_cast<char*>(errorBlog->GetBufferPointer()));
-		assert(false);
-	}
-	//バイナリをもとに生成
-	Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature = nullptr;
-	hr = dxCommon->GetDevice()->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(&rootSignature));
-	assert(SUCCEEDED(hr));
+	RootSignature rs;
+	rs.Create();
+
+	////構造体にデータを用意する
+	//D3D12_ROOT_SIGNATURE_DESC descriptorRootSignature{};
+	//descriptorRootSignature.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+	//Microsoft::WRL::ComPtr<ID3DBlob> signatureBlob = nullptr;
+	//Microsoft::WRL::ComPtr<ID3DBlob> errorBlog = nullptr;
+	//HRESULT hr = D3D12SerializeRootSignature(&descriptorRootSignature, D3D_ROOT_SIGNATURE_VERSION_1, &signatureBlob, &errorBlog);
+	//if (FAILED(hr)) {
+	//	DebugText::GetInstance()->ConsolePrintf(reinterpret_cast<char*>(errorBlog->GetBufferPointer()));
+	//	assert(false);
+	//}
+	////バイナリをもとに生成
+	//Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature = nullptr;
+	//hr = dxCommon->GetDevice()->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(&rootSignature));
+	//assert(SUCCEEDED(hr));
 
 
 	//Inputlayoutの設定を行う----------
