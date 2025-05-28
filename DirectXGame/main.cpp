@@ -3,8 +3,12 @@
 #include "KamataEngine.h"
 #include "Shader.h"
 #include "RootSignature.h"
+#include "PipelineState.h"
 
 using namespace KamataEngine;
+
+//関数プロトタイプ宣言
+void SetupPipelineState(PipelineState& pipelineState, RootSignature& rs, Shader& vs, Shader& ps);
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
