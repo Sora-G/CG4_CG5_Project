@@ -49,3 +49,20 @@ void VertexBuffer::Create(const UINT size, const UINT stride) {
 	//VertexBufferViewを取っておく
 	vertexBufferView_ = vertexBufferView;
 }
+
+//生成した頂点バッファーを返す
+ID3D12Resource* VertexBuffer::Get() { return vertexBuffer_; }
+
+//用意済みの頂点バッファービューを返す
+D3D12_VERTEX_BUFFER_VIEW* VertexBuffer::GetView() { return &vertexBufferView_; }
+
+//コンストラクタ
+VertexBuffer::VertexBuffer() {}
+
+//デストラクタ
+VertexBuffer::~VertexBuffer() {
+	if (vertexBuffer_) {
+		vertexBuffer_->Release();
+		vertexBuffer_ = nullptr;
+	}
+}
