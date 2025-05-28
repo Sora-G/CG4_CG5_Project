@@ -24,6 +24,13 @@ void RootSignature::Create() {
 		DebugText::GetInstance()->ConsolePrintf(reinterpret_cast<char*>(errorBlog->GetBufferPointer()));
 		assert(false);
 	}
+
+	//バイナリを元に生成
+	Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature = nullptr;
+	hr = dxCommon->GetDevice()->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(&rootSignature));
+	assert(SUCCEEDED(hr));
+
+	rootSignature_ = rootSignature;
 }
 
 ID3D12RootSignature* RootSignature::Get() { return nullptr; }
