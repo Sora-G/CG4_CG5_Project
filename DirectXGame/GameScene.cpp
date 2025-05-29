@@ -17,6 +17,8 @@ void GameScene::Initialize() {
 	camera_.Initialize();
 
 	model_ = Model2::Create();
+
+	textureHandle_ = TextureManager::Load("uvChecker.png");
 }
 
 void GameScene::Update() {
@@ -31,7 +33,7 @@ void GameScene::Draw() {
 	Model2::PreDraw(dxCommon->GetCommandList());
 	//--ここから3Dモデルの描画処理を書く--
 
-	model_->Draw(worldTransform_, camera_);
+	model_->Draw(worldTransform_, camera_, textureHandle_);
 
 	// 3Dモデル描画後処理
 	Model2::PostDraw();
