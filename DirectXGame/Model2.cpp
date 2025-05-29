@@ -131,6 +131,23 @@ Model2* Model2::CreateSphere(uint32_t divisionVertial, uint32_t divisionHorizont
 	return instance;
 }
 
+Model2* Model2::CreateSquare() { 
+	//メモリ確保
+	Model2* instance = new Model2;
+	std::vector<Mesh::VertexPosNormalUv> vertices;
+	std::vector<uint32_t> indices;
+	
+	//頂点数
+	const uint32_t kNumVertices = 4;
+	//インデックス数
+	const uint32_t kNumIndices = 6;
+
+	vertices.resize(kNumVertices);
+	indices.resize(kNumIndices);
+
+	return nullptr;
+}
+
 void Model2::PreDraw(ID3D12GraphicsCommandList* commandList) { ModelCommon2::GetInstance()->PreDraw(commandList); }
 
 void Model2::PostDraw() { ModelCommon2::GetInstance()->PostDraw(); }
