@@ -145,6 +145,30 @@ Model2* Model2::CreateSquare() {
 	vertices.resize(kNumVertices);
 	indices.resize(kNumIndices);
 
+	//左下
+	vertices[0].pos = {0.0f, 360.0f, 0.0f};
+	vertices[0].uv = {0.0f, 1.0f};
+	vertices[0].normal = vertices[0].pos;
+	vertices[0].normal = MathUtility::Normalize(vertices[0].normal);
+
+	//左上
+	vertices[1].pos = {0.0f, 0.0f, 0.0f};
+	vertices[1].uv = {0.0f, 0.0f};
+	vertices[1].normal = vertices[1].pos;
+	vertices[1].normal = MathUtility::Normalize(vertices[1].normal);
+
+	//右下
+	vertices[2].pos = {640.0f, 360.0f, 0.0f};
+	vertices[2].uv = {1.0f, 1.0f};
+	vertices[2].normal = vertices[2].pos;
+	vertices[2].normal = MathUtility::Normalize(vertices[2].normal);
+
+	//右上
+	vertices[3].pos = {640.0f, 0.0f, 0.0f};
+	vertices[3].uv = {1.0f, 0.0f};
+	vertices[3].normal = vertices[3].pos;
+	vertices[3].normal = MathUtility::Normalize(vertices[3].normal);
+
 	return nullptr;
 }
 
