@@ -1,5 +1,6 @@
 #pragma once
 #include <KamataEngine.h>
+#include "Model2.h"
 
 class GameScene {
 public: // メンバ関数
@@ -23,5 +24,5 @@ public: // メンバ関数
 private: // メンバ変数
 	KamataEngine::WorldTransform worldTransform_;//ワールド変換データ
 	KamataEngine::Camera camera_;//カメラ
-	KamataEngine::Model* model_;
+	KamataEngine::Model2* model_;
 };
