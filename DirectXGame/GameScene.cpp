@@ -13,10 +13,11 @@ void GameScene::Initialize() {
 	Model2::StaticInitialize();
 	//ワールド変換データの初期化
 	worldTransform_.Initialize();
+	camera_.translation_.z = -10;
 	//カメラの初期化
 	camera_.Initialize();
 
-	model_ = Model2::Create();
+	model_ = Model2::CreateSquare();
 
 	textureHandle_ = TextureManager::Load("uvChecker.png");
 }
@@ -24,6 +25,11 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix();
+
+	//カメラの更新
+	camera_.UpdateMatrix();
+	//行列を定数バッファに転送
+	camera_.TransferMatrix();
 }
 
 void GameScene::Draw() {
