@@ -23,4 +23,5 @@ public: // メンバ関数
 private: // メンバ変数
 	KamataEngine::WorldTransform worldTransform_;//ワールド変換データ
 	KamataEngine::Camera camera_;//カメラ
+	KamataEngine::Model* model_;
 };

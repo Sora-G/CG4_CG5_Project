@@ -4,6 +4,7 @@ using namespace KamataEngine;
 
 GameScene::~GameScene() {
 	//解放処理
+	delete model_;
 }
 
 void GameScene::Initialize() {
@@ -11,6 +12,8 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	//カメラの初期化
 	camera_.Initialize();
+
+	model_ = Model::Create();
 }
 
 void GameScene::Update() {
@@ -24,6 +27,8 @@ void GameScene::Draw() {
 	//3Dモデル描画前処理
 	Model::PreDraw(dxCommon->GetCommandList());
 	//--ここから3Dモデルの描画処理を書く--
+
+	model_->Draw(worldTransform_, camera_);
 
 	// 3Dモデル描画後処理
 	Model::PostDraw();
