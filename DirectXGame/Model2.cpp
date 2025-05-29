@@ -169,7 +169,13 @@ Model2* Model2::CreateSquare() {
 	vertices[3].normal = vertices[3].pos;
 	vertices[3].normal = MathUtility::Normalize(vertices[3].normal);
 
-	return nullptr;
+	//インデックス
+	indices[0] = 0;	indices[1] = 1;	indices[2] = 2;
+	indices[3] = 1;	indices[4] = 3;	indices[5] = 2;
+
+	instance->InitializeFromVertices(vertices, indices);
+
+	return instance;
 }
 
 void Model2::PreDraw(ID3D12GraphicsCommandList* commandList) { ModelCommon2::GetInstance()->PreDraw(commandList); }
