@@ -13,4 +13,20 @@ void IndexBuffer::Create(const UINT size, const UINT stride) {
 	
 	//クラス内でdxCommonを使用するために追加
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
+
+	//インデックスリソースの生成==========
+	//インデックスリソース用のヒープの設定
+	D3D12_HEAP_PROPERTIES uploadHeapProperties{};
+	uploadHeapProperties.Type = D3D12_HEAP_TYPE_UPLOAD;//CPUから書き込むヒープ
+	//インデックスリソースの設定
+	D3D12_RESOURCE_DESC indexResourceDesc{};
+	indexResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;//バッファ
+	indexResourceDesc.Width = size;//リソースのサイズ
+	//バッファの場合はこれらを１にする決まり
+	indexResourceDesc.Height = 1;
+	indexResourceDesc.DepthOrArraySize = 1;
+	indexResourceDesc.MipLevels = 1;
+	indexResourceDesc.SampleDesc.Count = 1;
+	//バッファの場合はこれにする決まり
+	indexResourceDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 }
