@@ -17,7 +17,6 @@ public:
 	~IndexBuffer();
 
 private:
-	ID3D12Resource* indexBuffer_ = nullptr;
-	D3D12_INDEX_BUFFER_VIEW indexBufferView_{};
-
+	ID3D12Resource* indexBuffer_ = nullptr;//インデックスバッファー
+	D3D12_INDEX_BUFFER_VIEW indexBufferView_{};//インデックスバッファービュー
 };
