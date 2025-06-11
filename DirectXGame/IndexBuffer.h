@@ -10,4 +10,14 @@ public:
 	//ゲッター
 	ID3D12Resource* Get();//インデックスバッファー
 	D3D12_INDEX_BUFFER_VIEW* GetView();//インデックスバッファービュー
+
+	//コンストラクタ
+	IndexBuffer();
+	//デストラクタ
+	~IndexBuffer();
+
+private:
+	ID3D12Resource* indexBuffer_ = nullptr;
+	D3D12_INDEX_BUFFER_VIEW indexBufferView_{};
+
 };
