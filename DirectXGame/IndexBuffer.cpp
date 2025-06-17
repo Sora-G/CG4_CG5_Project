@@ -41,4 +41,16 @@ void IndexBuffer::Create(const UINT size, const UINT stride) {
 
 	//生成したインデックスリソースをとっておく
 	indexBuffer_ = indexResource;
+
+	//IndexBufferViewを作成する
+	D3D12_INDEX_BUFFER_VIEW indexBufferView{};
+	//リソースの先頭アドレスから使う
+	indexBufferView.BufferLocation = indexResource->GetGPUVirtualAddress();
+	//使用するインデックスデータの全サイズ
+	indexBufferView.SizeInBytes = size;
+	//インデックスのフォーマット
+	indexBufferView.Format = format;
+
+	//indexBufferViewをとっておく
+
 }
