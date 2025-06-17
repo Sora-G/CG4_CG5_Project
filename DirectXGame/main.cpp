@@ -5,6 +5,7 @@
 #include "RootSignature.h"
 #include "PipelineState.h"
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 using namespace KamataEngine;
 
@@ -75,6 +76,18 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	//頂点インデックスデータの準備
 	uint16_t indices[] = {0, 1, 2};
+
+	//IndexBuffer(IndexResource,IndexResourceView)の生成
+	IndexBuffer ib;
+	ib.Create(sizeof(indices), sizeof(indices[0]));
+
+	//頂点インデックスリソースにデータを書き込む
+	uint16_t* pGpuIndices = nullptr;
+	ib.Get()->Map(0, nullptr, reinterpret_cast<void**>(&pGpuIndices));
+
+	for (int i = 0; i < _countof(indices); ++i) {
+		pGpuIndices[i] = indices[i];
+	}
 
 	// メインループ
 	while (true) {
