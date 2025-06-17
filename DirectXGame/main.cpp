@@ -73,7 +73,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		pGpuVertices[i] = vertices[i];
 	}
 
-
+	//頂点インデックスデータの準備
+	uint16_t indices[] = {0, 1, 2};
 
 	// メインループ
 	while (true) {
