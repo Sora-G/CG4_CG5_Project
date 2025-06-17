@@ -48,17 +48,32 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	PipelineState pipelineState;
 	SetupPipelineState(pipelineState, rs, vs, ps);
 
+	//リソースの確保を含め、頂点情報を柔軟に対応できるようにVertexData構造体を新たに作成する
+	//Vertex4->VertexDataに変更して利用する
+	struct VertexData {
+		Vector4 position;
+	};
+
+	//頂点データの準備
+	VertexData vertices[] = {
+	    {0.0f,  0.5f,  0.0f, 1.0f},	//上
+	    {0.5f,  -0.5f, 0.0f, 1.0f},	//右下
+	    {-0.5f, -0.5f, 0.0f, 1.0f},	//左下
+	};
+
 	//VertexBufferの生成
 	VertexBuffer vb;
-	vb.Create(sizeof(Vector4) * 3, sizeof(Vector4));
+	vb.Create(sizeof(vertices), sizeof(vertices[0]));
 
-	//Resourceにデータを書き込む----------
 	//頂点リソースにデータを書き込む
-	Vector4* vertexData = nullptr;
-	vb.Get()->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
-	vertexData[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
-	vertexData[1] = {0.0f, 0.5f, 0.0f, 1.0f};
-	vertexData[2] = {0.5f, -0.5f, 0.0f, 1.0f};
+	VertexData* pGpuVertices = nullptr;
+	vb.Get()->Map(0, nullptr, reinterpret_cast<void**>(&pGpuVertices));
+
+	for (int i = 0; i < _countof(vertices); ++i) {
+		pGpuVertices[i] = vertices[i];
+	}
+
+
 
 	// メインループ
 	while (true) {
