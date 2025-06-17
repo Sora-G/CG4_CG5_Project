@@ -52,5 +52,18 @@ void IndexBuffer::Create(const UINT size, const UINT stride) {
 	indexBufferView.Format = format;
 
 	//indexBufferViewをとっておく
+	indexBufferView_ = indexBufferView;
+}
 
+ID3D12Resource* IndexBuffer::Get() { return indexBuffer_; }
+
+D3D12_INDEX_BUFFER_VIEW* IndexBuffer::GetView() { return &indexBufferView_; }
+
+IndexBuffer::IndexBuffer() {}
+
+IndexBuffer::~IndexBuffer() {
+	if (indexBuffer_) {
+		indexBuffer_->Release();
+		indexBuffer_ = nullptr;
+	}
 }
