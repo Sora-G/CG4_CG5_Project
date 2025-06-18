@@ -53,6 +53,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	//Vertex4->VertexDataに変更して利用する
 	struct VertexData {
 		Vector4 position;
+		Vector2 texcoord;
 	};
 
 	//頂点データの準備
