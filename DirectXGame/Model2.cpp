@@ -131,10 +131,18 @@ Model2* Model2::CreateSphere(uint32_t divisionVertial, uint32_t divisionHorizont
 	return instance;
 }
 
-Model2* Model2::CreateSquare() { 
+Model2* Model2::CreateSquare(int count) { 
 	//メモリ確保
 	Model2* instance = new Model2;
+
+	//四角形の個数
+	int squareCount = count;
+	//四角形の距離
+	const float dist = 1.0f;
+
+	//頂点
 	std::vector<Mesh::VertexPosNormalUv> vertices;
+	//インデックス
 	std::vector<uint32_t> indices;
 	
 	//頂点数
@@ -142,32 +150,45 @@ Model2* Model2::CreateSquare() {
 	//インデックス数
 	const uint32_t kNumIndices = 6;
 
-	vertices.resize(kNumVertices);
-	indices.resize(kNumIndices);
+	//頂点の数x四角形の数(4 x 個数)
+	vertices.resize(kNumVertices * squareCount);
+	// インデックスの数x四角形の数(6 x 個数)
+	indices.resize(kNumIndices * squareCount);
 
-	//左下
-	vertices[0].pos = {0.0f, 1.0f, 0.0f};
-	vertices[0].uv = {0.0f, 1.0f};
-	vertices[0].normal = {0.0f, 0.0f, 1.0f};
+	for (int i = 0; i < squareCount; ++i) {
+		//1個目の四角形からの距離
+		float offsetX = i * dist;
 
-	//左上
-	vertices[1].pos = {0.0f, 0.0f, 0.0f};
-	vertices[1].uv = {0.0f, 0.0f};
-	vertices[1].normal = {0.0f, 0.0f, 1.0f};
+		//四角形の個数分の頂点とインデックスを用意
+		uint32_t vIndex = i * kNumVertices;
+		uint32_t iIndex = i * kNumIndices;
 
-	//右下
-	vertices[2].pos = {1.0f, 1.0f, 0.0f};
-	vertices[2].uv = {1.0f, 1.0f};
-	vertices[2].normal = {0.0f, 0.0f, 1.0f};
+		//左下
+		vertices[vIndex + 0].pos = {offsetX + 0.0f, 1.0f, 0.0f};
+		vertices[vIndex + 0].uv = {0.0f, 1.0f};
+		//左上
+		vertices[vIndex + 1].pos = {offsetX + 0.0f, 0.0f, 0.0f};
+		vertices[vIndex + 1].uv = {0.0f, 0.0f};
+		//右下
+		vertices[vIndex + 2].pos = {offsetX + 1.0f, 1.0f, 0.0f};
+		vertices[vIndex + 2].uv = {1.0f, 1.0f};
+		//右上
+		vertices[vIndex + 3].pos = {offsetX + 1.0f, 0.0f, 0.0f};
+		vertices[vIndex + 3].uv = {1.0f, 0.0f};
 
-	//右上
-	vertices[3].pos = {1.0f, 0.0f, 0.0f};
-	vertices[3].uv = {1.0f, 0.0f};
-	vertices[3].normal = {0.0f, 0.0f, 1.0f};
+		//ノーマル
+		for (int j = 0; j < 4; ++j) {
+			vertices[vIndex + j].normal = {0.0f, 0.0f, 1.0f};
+		}
 
-	//インデックス
-	indices[0] = 0;	indices[1] = 2;	indices[2] = 1;
-	indices[3] = 1;	indices[4] = 2;	indices[5] = 3;
+		// インデックス
+		indices[iIndex + 0] = vIndex + 0;
+		indices[iIndex + 1] = vIndex + 2;
+		indices[iIndex + 2] = vIndex + 1;
+		indices[iIndex + 3] = vIndex + 1;
+		indices[iIndex + 4] = vIndex + 2;
+		indices[iIndex + 5] = vIndex + 3;
+	}
 
 	instance->InitializeFromVertices(vertices, indices);
 
