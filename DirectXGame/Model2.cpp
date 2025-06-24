@@ -163,18 +163,18 @@ Model2* Model2::CreateSquare(int count) {
 		uint32_t vIndex = i * kNumVertices;
 		uint32_t iIndex = i * kNumIndices;
 
-		//左下
-		vertices[vIndex + 0].pos = {offsetX + 0.0f, 1.0f, 0.0f};
-		vertices[vIndex + 0].uv = {0.0f, 1.0f};
 		//左上
+		vertices[vIndex + 0].pos = {offsetX + 0.0f, 1.0f, 0.0f};
+		vertices[vIndex + 0].uv = {0.0f, 0.0f};
+		//左下
 		vertices[vIndex + 1].pos = {offsetX + 0.0f, 0.0f, 0.0f};
-		vertices[vIndex + 1].uv = {0.0f, 0.0f};
-		//右下
-		vertices[vIndex + 2].pos = {offsetX + 1.0f, 1.0f, 0.0f};
-		vertices[vIndex + 2].uv = {1.0f, 1.0f};
+		vertices[vIndex + 1].uv = {0.0f, 1.0f};
 		//右上
+		vertices[vIndex + 2].pos = {offsetX + 1.0f, 1.0f, 0.0f};
+		vertices[vIndex + 2].uv = {1.0f, 0.0f};
+		//右下
 		vertices[vIndex + 3].pos = {offsetX + 1.0f, 0.0f, 0.0f};
-		vertices[vIndex + 3].uv = {1.0f, 0.0f};
+		vertices[vIndex + 3].uv = {1.0f, 1.0f};
 
 		//ノーマル
 		for (int j = 0; j < 4; ++j) {
