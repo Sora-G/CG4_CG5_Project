@@ -178,7 +178,7 @@ void SetupPipelineState(PipelineState& pipelineState, RootSignature& rs, Shader&
 	pipelineState.Create(graphicsPipelineStateDesc);
 }
 
-ID3D12Resource* CreateRenderTextureResource(ID3D12Device* device, uint32_t width, uint32_t height, DXGI_FORMAT format, const FLOAT* clearColor) {
+ID3D12Resource* CreateRenderTextureResource(ID3D12Device* device, uint32_t width, uint32_t height, DXGI_FORMAT clearFormat, const FLOAT* clearColor) {
 	//1.生成するRenderTextureのDesc生成
 	D3D12_RESOURCE_DESC resourceDesc{};
 	resourceDesc.Width = UINT(width);//RenderTextureの幅
@@ -189,4 +189,16 @@ ID3D12Resource* CreateRenderTextureResource(ID3D12Device* device, uint32_t width
 	resourceDesc.SampleDesc.Count = 1;//サンプリングカウント
 	resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;//Textureの次元数。普段使っているのは2次元
 	resourceDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;//RenderTargetとして使う通知
+
+	//2.利用するHeapの設定
+	D3D12_HEAP_PROPERTIES heapProperties{};
+	heapProperties.Type = D3D12_HEAP_TYPE_DEFAULT;//VRAM上に作
+
+	//3.ClearValueの用意
+	D3D12_CLEAR_VALUE clearValue{};
+	clearValue.Format = clearFormat;
+	clearValue.Color[0] = clearColor[0];
+	clearValue.Color[1] = clearColor[1];
+	clearValue.Color[2] = clearColor[2];
+	clearValue.Color[3] = clearColor[3];
 }
