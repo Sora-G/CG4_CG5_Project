@@ -201,4 +201,18 @@ ID3D12Resource* CreateRenderTextureResource(ID3D12Device* device, uint32_t width
 	clearValue.Color[1] = clearColor[1];
 	clearValue.Color[2] = clearColor[2];
 	clearValue.Color[3] = clearColor[3];
+
+	//4.RenderTextureResourceの生成
+	ID3D12Resource* resource = nullptr;
+	HRESULT hr = device->CreateCommittedResource(
+		&heapProperties, 
+		D3D12_HEAP_FLAG_NONE, 
+		&resourceDesc, 
+		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE, 
+		&clearValue, 
+		IID_PPV_ARGS(&resource)
+	);
+	assert(SUCCEEDED(hr));
+
+	return resource;
 }
