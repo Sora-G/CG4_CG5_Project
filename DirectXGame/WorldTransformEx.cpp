@@ -1,0 +1,32 @@
+#include "WorldTransformEx.h"
+
+using namespace KamataEngine;
+using namespace KamataEngine::MathUtility;
+
+//scale rotation translate 行列からworld行列を計算
+//そして定数バッファへの転送も行う
+void WorldTransformEx::UpdateMatrix() { 
+	//World変換行列を計算しmatWorldに格納する
+	matWorld_ = MakeAffineMatrix();
+	//定数バッファへ転送する
+	TransferMatrix();
+}
+
+KamataEngine::Matrix4x4 WorldTransformEx::MakeAffineMatrix() { 
+	//scale Matrix
+	Matrix4x4 matScale = MakeScaleMatrix(scale_);
+
+	//rotation Matrix
+	Matrix4x4 matRotX = MakeRotateXMatrix(rotation_.x);
+	Matrix4x4 matRotY = MakeRotateXMatrix(rotation_.y);
+	Matrix4x4 matRotZ = MakeRotateXMatrix(rotation_.z);
+	Matrix4x4 matRot = matRotZ * matRotX * matRotY;
+
+	//traslate Matrix
+	Matrix4x4 matTrans = MakeTranslateMatrix(translation_);
+
+	//world Matrix
+	Matrix4x4 matWorld = matScale * matRot * matTrans;
+
+	return matWorld;
+}
