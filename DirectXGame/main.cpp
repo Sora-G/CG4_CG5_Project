@@ -242,9 +242,6 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		commandList->ResourceBarrier(1, &barrier);//バリアを張る
 
 
-
-
-
 		// 描画開始
 		dxCommon->PreDraw();
 		// 描画処理はここから
@@ -256,6 +253,13 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		commandList->IASetIndexBuffer(ib.GetView());
 		//トポロジの設定
 		commandList->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		//使用するデスクリプタヒープの設定
+		commandList->SetDescriptorHeaps(srvDescriptorHeap->GetDesc().NumDescriptors, &srvDescriptorHeap);
+
+		//SRVのDescriptorDableの先頭を設定
+		commandList->SetGraphicsRootDescriptorTable(0, srvHandleGPU);
+
 		//頂点数、インデックス数、インデックスの開始位置、インデックスのオフセット
 		//commandList->DrawInstanced(3, 1, 0, 0);
 		commandList->DrawIndexedInstanced(_countof(indices), 1, 0, 0,0);
