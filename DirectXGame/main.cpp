@@ -99,8 +99,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	ID3D12Device* device = dxCommon->GetDevice();
 	HRESULT hr;
 
-	//RenderTexture関係
 
+	//RenderTexture関係
 	//0.RenderTextureResourceの作成
 	//画面クリア色
 	const FLOAT kRenderTargetClearColor[4] = {1.0f, 0.0f, 0.0f, 1.0f};
@@ -124,6 +124,12 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	//2.RTV用のViewの生成
 	device->CreateRenderTargetView(renderTextureResource, nullptr, rtvHandleCPU);
+
+
+	//DepthStencilTexture関係
+	//0.DepthStencilTextureResourceの作成
+	ID3D12Resource* depthStencilResource = CreateDepthStencilTextureResource(
+		device, WinApp::kWindowWidth, WinApp::kWindowHeight);
 
 
 
