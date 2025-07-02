@@ -214,6 +214,21 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 		commandList->RSSetViewports(1, &viewPort);
 
+		//Scissorの設定
+		D3D12_RECT scissorRect{};
+		//基本的にビューポートと同じ短径が描画されるようにする
+		scissorRect.left = 0;
+		scissorRect.right = WinApp::kWindowWidth;
+		scissorRect.top = 0;
+		scissorRect.bottom = WinApp::kWindowHeight;
+
+		commandList->RSSetScissorRects(1, &scissorRect);
+
+		//全画面クリア
+		commandList->ClearRenderTargetView(rtvHandleCPU, kRenderTargetClearColor, 0, nullptr);
+		//指定した深度で画面全体をクリアする
+		commandList->ClearDepthStencilView(dsvHandleCPU, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+
 
 		// 描画開始
 		dxCommon->PreDraw();
