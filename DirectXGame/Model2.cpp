@@ -178,7 +178,7 @@ Model2* Model2::CreateSquare(int count) {
 
 		//ノーマル
 		for (int j = 0; j < 4; ++j) {
-			vertices[vIndex + j].normal = {0.0f, 0.0f, 1.0f};
+			vertices[vIndex + j].normal = {0.0f, 0.0f, -1.0f};
 		}
 
 		// インデックス
