@@ -25,6 +25,16 @@ void RootSignature::Create() {
 	srvDescRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
 	srvDescRange[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 
+	//RootParameterの用意
+	D3D12_ROOT_PARAMETER rootParameters[1]{};
+	rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParameters[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+	rootParameters[0].DescriptorTable.pDescriptorRanges = srvDescRange;
+	rootParameters[0].DescriptorTable.NumDescriptorRanges = _countof(srvDescRange);
+
+	descriptionRootSignature.pParameters = rootParameters;
+	descriptionRootSignature.NumParameters = _countof(rootParameters);
+
 
 
 	ID3DBlob* signatureBlob = nullptr;
