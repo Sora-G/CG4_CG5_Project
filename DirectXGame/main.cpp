@@ -204,6 +204,13 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			break;
 		}
 
+		//world変換行列の定数バッファへの転送
+		worldTransform.rotation_.y += 0.005f;
+		worldTransform.UpdateMatrix();
+
+		//cameraの更新と定数バッファへの転送
+		camera.UpdateMatrix();
+
 		//TranslationBarrierをSRV=>RTVに設定する
 		D3D12_RESOURCE_BARRIER barrier{};
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;//TranslationBarrierの設定
