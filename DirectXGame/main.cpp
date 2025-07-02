@@ -134,15 +134,23 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	//1.DSV用のDescroptorHeapの作成
 	ID3D12DescriptorHeap* dsvDescriptorHeap = nullptr;
 	D3D12_DESCRIPTOR_HEAP_DESC dsvDescriptorHeapDesc{};
-	dsvDescriptorHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
-	dsvDescriptorHeapDesc.NumDescriptors = 1;
-	dsvDescriptorHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+	dsvDescriptorHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;//HeapType
+	dsvDescriptorHeapDesc.NumDescriptors = 1;//HeapTypeの個数
+	dsvDescriptorHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;//DSVはShaderで触らないとする
 
 	hr = device->CreateDescriptorHeap(&dsvDescriptorHeapDesc, IID_PPV_ARGS(&dsvDescriptorHeap));
 	assert(SUCCEEDED(hr));
 
 	//CPU側からみたHANDLEを取得しておく
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandleCPU = dsvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
+
+	//2.DSV用のViewの生成
+	D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc{};
+	dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;//基本的にResourceに合わせる
+	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;//2DTexture
+
+	//DSVHeapの先頭にDSVを作る
+	device->CreateDepthStencilView(depthStencilResource, &dsvDesc, dsvHandleCPU);
 
 
 
