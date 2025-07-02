@@ -6,6 +6,7 @@
 #include "PipelineState.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "WorldTransformEx.h"
 
 using namespace KamataEngine;
 
@@ -181,6 +182,18 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		&srvDesc, //SRVの詳細情報(Desc:Description、構成内容の記述)
 		srvHandleCPU//SRV用デスクリプタヒープのCPUHandle
 	);
+
+	//被写体の準備
+	Model* model = Model::CreateFromOBJ("terrain");
+
+	WorldTransformEx worldTransform;
+	worldTransform.Initialize();
+	worldTransform.scale_ = Vector3(1.0f, 1.0f, 1.0f);
+
+	//カメラの準備
+	Camera camera;
+	camera.Initialize();
+	camera.translation_ = Vector3(0.0f, 1.0f, 0.0f);
 
 
 
