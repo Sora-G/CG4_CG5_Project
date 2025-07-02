@@ -18,8 +18,8 @@ KamataEngine::Matrix4x4 WorldTransformEx::MakeAffineMatrix() {
 
 	//rotation Matrix
 	Matrix4x4 matRotX = MakeRotateXMatrix(rotation_.x);
-	Matrix4x4 matRotY = MakeRotateXMatrix(rotation_.y);
-	Matrix4x4 matRotZ = MakeRotateXMatrix(rotation_.z);
+	Matrix4x4 matRotY = MakeRotateYMatrix(rotation_.y);
+	Matrix4x4 matRotZ = MakeRotateZMatrix(rotation_.z);
 	Matrix4x4 matRot = matRotZ * matRotX * matRotY;
 
 	//traslate Matrix
