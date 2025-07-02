@@ -193,15 +193,26 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 		//TranslationBarrierをSRV=>RTVに設定する
 		D3D12_RESOURCE_BARRIER barrier{};
-		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
-		barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
-		barrier.Transition.pResource = renderTextureResource;
-		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;
-		barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
-		commandList->ResourceBarrier(1, &barrier);
+		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;//TranslationBarrierの設定
+		barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;//フラグはNoneにして奥
+		barrier.Transition.pResource = renderTextureResource;//バリアを張る対象のリソース
+		barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;//遷移前
+		barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;//遷移後
+		commandList->ResourceBarrier(1, &barrier);//バリアを張る
 
 		//描画先のRTVとDSVを設定する
 		commandList->OMSetRenderTargets(1, &rtvHandleCPU, false, &dsvHandleCPU);
+
+		//ViewPortの設定
+		D3D12_VIEWPORT viewPort{};
+		viewPort.Width = WinApp::kWindowWidth;
+		viewPort.Height = WinApp::kWindowHeight;
+		viewPort.TopLeftX = 0;
+		viewPort.TopLeftY = 0;
+		viewPort.MinDepth = 0.0f;//深度の最小値
+		viewPort.MaxDepth = 1.0f;//深度の最大値
+
+		commandList->RSSetViewports(1, &viewPort);
 
 
 		// 描画開始
