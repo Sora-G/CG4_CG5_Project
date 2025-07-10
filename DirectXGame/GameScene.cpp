@@ -13,7 +13,7 @@ void GameScene::Initialize() {
 	Model2::StaticInitialize();
 	//ワールド変換データの初期化
 	worldTransform_.Initialize();
-	camera_.translation_.z = -3;
+	camera_.translation_.z = -10;
 	//カメラの初期化
 	camera_.Initialize();
 
