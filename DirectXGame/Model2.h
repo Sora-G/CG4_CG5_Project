@@ -147,7 +147,7 @@ public: // 静的メンバ関数
 	/// リングモデル生成
 	/// </summary>
 	/// <returns></returns>
-	static Model2* CreateRing();
+	static Model2* CreateRing(uint32_t divide);
 
 	/// <summary>
 	/// 描画前処理

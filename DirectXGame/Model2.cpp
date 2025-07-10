@@ -13,6 +13,8 @@
 #include <fstream>
 #include <numbers>
 #include <sstream>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "Model2.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
@@ -195,7 +197,7 @@ Model2* Model2::CreateSquare(int count) {
 	return instance;
 }
 
-Model2* Model2::CreateRing() { 
+Model2* Model2::CreateRing(uint32_t divide) { 
 	// メモリ確保
 	Model2* instance = new Model2;
 	// 頂点
@@ -206,36 +208,69 @@ Model2* Model2::CreateRing() {
 	const uint32_t kNumVertices = 4;
 	// インデックス数
 	const uint32_t kNumIndices = 6;
+
+
+	//分割数
+	uint32_t ringDivide = divide;
+
 	// 頂点の数x四角形の数(4 x 個数)
-	vertices.resize(kNumVertices);
+	vertices.resize(kNumVertices * ringDivide);
 	// インデックスの数x四角形の数(6 x 個数)
-	indices.resize(kNumIndices);
+	indices.resize(kNumIndices * ringDivide);
 
-	// 左下
-	vertices[0].pos = {0.0f, 1.0f, 0.0f};
-	vertices[0].uv = {0.0f, 0.0f};
-	// 左上
-	vertices[1].pos = {0.0f, 0.0f, 0.0f};
-	vertices[1].uv = {0.0f, 1.0f};
-	// 右下
-	vertices[2].pos = {1.0f, 1.0f, 0.0f};
-	vertices[2].uv = {1.0f, 0.0f};
-	// 右上
-	vertices[3].pos = {1.0f, 0.0f, 0.0f};
-	vertices[3].uv = {1.0f, 1.0f};
+	//360°を分割数で分割した時の角度
+	float radianPerDivide = 2.0f * std::numbers::pi_v<float> / float(ringDivide);
+	//外経
+	float outerRadius = 1.0f;
+	//内径
+	float innerRadius = 0.2f;
 
-	// ノーマル
-	for (int j = 0; j < 4; ++j) {
-		vertices[j].normal = {0.0f, 0.0f, -1.0f};
+	//分割数→繰り返す
+	for (uint32_t index = 0; index < ringDivide;++index) {
+		//Y座標
+		float sin = std::sin(index * radianPerDivide);
+		//X座標
+		float cos = std::cos(index * radianPerDivide);
+		//次のY座標
+		float sinNext = std::sin((index + 1) * radianPerDivide);
+		//次のX座標
+		float cosNext = std::cos((index + 1) * radianPerDivide);
+		//UV座標
+		float u = float(index) / float(ringDivide);
+		//次のUV座標
+		float uNext = float(index+1) / float(ringDivide);
+
+		//分割数分の頂点とインデックスを用意
+		uint32_t vIndex = index * kNumVertices;
+		uint32_t iIndex = index * kNumIndices;
+
+		///座標とUV座標
+		//1
+		vertices[vIndex + 0].pos = {-cos * outerRadius, -sin * outerRadius, 0.0f};
+		vertices[vIndex + 0].uv = {u, 0.0f};
+		//2
+		vertices[vIndex + 1].pos = {-cosNext * outerRadius, -sinNext * outerRadius, 0.0f};
+		vertices[vIndex + 1].uv = {uNext, 0.0f};
+		//3
+		vertices[vIndex + 2].pos = {-cos * innerRadius, -sin * innerRadius, 0.0f};
+		vertices[vIndex + 2].uv = {u, 1.0f};
+		//4
+		vertices[vIndex + 3].pos = {-cosNext * innerRadius, -sinNext * innerRadius, 0.0f};
+		vertices[vIndex + 3].uv = {uNext, 1.0f};
+
+		// ノーマル
+		for (int j = 0; j < 4; ++j) {
+			vertices[vIndex + j].normal = {0.0f, 0.0f, -1.0f};
+		}
+
+		// インデックス
+		indices[iIndex + 0] = vIndex + 0;
+		indices[iIndex + 1] = vIndex + 2;
+		indices[iIndex + 2] = vIndex + 1;
+		indices[iIndex + 3] = vIndex + 1;
+		indices[iIndex + 4] = vIndex + 2;
+		indices[iIndex + 5] = vIndex + 3;
 	}
-
-	// インデックス
-	indices[0] = 0;
-	indices[1] = 2;
-	indices[2] = 1;
-	indices[3] = 1;
-	indices[4] = 2;
-	indices[5] = 3;
 
 	instance->InitializeFromVertices(vertices, indices);
 

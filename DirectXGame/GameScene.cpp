@@ -17,7 +17,7 @@ void GameScene::Initialize() {
 	//カメラの初期化
 	camera_.Initialize();
 
-	model_ = Model2::CreateRing();
+	model_ = Model2::CreateRing(16);
 
 	textureHandle_ = TextureManager::Load("uvChecker.png");
 }
