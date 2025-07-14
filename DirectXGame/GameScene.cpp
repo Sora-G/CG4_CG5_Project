@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "Stage.h"
 
 using namespace KamataEngine;
 
