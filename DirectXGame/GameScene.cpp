@@ -6,6 +6,7 @@ GameScene::~GameScene() {
 	//解放処理
 	delete stage_;
 	delete model_;
+	delete player_;
 }
 
 void GameScene::Init() {
@@ -18,6 +19,9 @@ void GameScene::Init() {
 	stage_->Init();
 
 	model_ = Model::CreateSphere();
+
+	player_ = new Player();
+	player_->Init();
 }
 
 void GameScene::Update() {
@@ -26,6 +30,7 @@ void GameScene::Update() {
 	camera_.UpdateMatrix();
 	camera_.TransferMatrix();
 	stage_->Update();
+	player_->Update();
 }
 
 void GameScene::DrawBackGroundSprite() {
@@ -35,6 +40,6 @@ void GameScene::DrawBackGroundSprite() {
 
 void GameScene::DrawModel() {
 	//モデルの描画処理
-	model_->Draw(worldTransform_, camera_);
+	player_->Draw(camera_);
 }
 

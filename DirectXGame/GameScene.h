@@ -1,9 +1,10 @@
 #pragma once
 #include "KamataEngine.h"
 #include "Stage.h"
+#include "Player.h"
 class GameScene {
 public:
-	~GameScene();//デストラクタ
+	~GameScene();//解放処理
 	void Init();//初期化処理
 	void Update();//更新処理
 	void DrawBackGroundSprite();//スプライトの描画処理
@@ -14,4 +15,5 @@ private:
 	KamataEngine::Camera camera_;
 	Stage* stage_ = nullptr;
 	KamataEngine::Model* model_ = nullptr;
+	Player* player_ = nullptr;
 };

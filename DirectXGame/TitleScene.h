@@ -2,7 +2,7 @@
 #include "KamataEngine.h"
 class TitleScene {
 public:
-	~TitleScene();  // デストラクタ
+	~TitleScene();  //解放処理
 	void Init();   // 初期化処理
 	void Update(); // 更新処理
 	void Draw();   // 描画処理
