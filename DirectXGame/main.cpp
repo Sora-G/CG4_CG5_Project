@@ -45,6 +45,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 		// スプライト描画前処理
 		Sprite::PreDraw(dxCommon->GetCommandList());
+		gameScene->DrawUISprite();
 		// スプライト描画後処理
 		Sprite::PostDraw();
 

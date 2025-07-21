@@ -7,6 +7,7 @@ GameScene::~GameScene() {
 	delete stage_;
 	delete model_;
 	delete player_;
+	delete graph_;
 }
 
 void GameScene::Init() {
@@ -22,6 +23,9 @@ void GameScene::Init() {
 
 	player_ = new Player();
 	player_->Init();
+
+	graph_ = new Graph();
+	graph_->Init();
 }
 
 void GameScene::Update() {
@@ -31,11 +35,17 @@ void GameScene::Update() {
 	camera_.TransferMatrix();
 	stage_->Update();
 	player_->Update();
+	graph_->Update();
 }
 
 void GameScene::DrawBackGroundSprite() {
 	//スプライトの描画処理
 	stage_->Draw();
+}
+
+void GameScene::DrawUISprite() {
+	//スプライトの描画処理
+	graph_->Draw();
 }
 
 void GameScene::DrawModel() {
