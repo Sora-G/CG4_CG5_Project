@@ -3,6 +3,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Graph.h"
+#include "DrawScore.h"
 class GameScene {
 public:
 	~GameScene();//解放処理
@@ -19,4 +20,5 @@ private:
 	KamataEngine::Model* model_ = nullptr;
 	Player* player_ = nullptr;
 	Graph* graph_ = nullptr;
+	DrawScore* score_ = nullptr;
 };

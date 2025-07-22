@@ -8,6 +8,7 @@ GameScene::~GameScene() {
 	delete model_;
 	delete player_;
 	delete graph_;
+	delete score_;
 }
 
 void GameScene::Init() {
@@ -26,6 +27,9 @@ void GameScene::Init() {
 
 	graph_ = new Graph();
 	graph_->Init();
+
+	score_ = new DrawScore();
+	score_->Init();
 }
 
 void GameScene::Update() {
@@ -36,6 +40,7 @@ void GameScene::Update() {
 	stage_->Update();
 	player_->Update();
 	graph_->Update();
+	score_->Update();
 }
 
 void GameScene::DrawBackGroundSprite() {
@@ -46,6 +51,7 @@ void GameScene::DrawBackGroundSprite() {
 void GameScene::DrawUISprite() {
 	//スプライトの描画処理
 	graph_->Draw();
+	score_->Draw();
 }
 
 void GameScene::DrawModel() {
