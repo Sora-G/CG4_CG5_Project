@@ -6,6 +6,8 @@
 
 using namespace KamataEngine;
 
+enum Scene {TITLE,GAME_SCENE};
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// エンジンの初期化
@@ -13,6 +15,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 
 	// DirectXCommonのインスタンスを取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();
+
+	int sceneNo = TITLE;
 
 	TitleScene* titleScene = new TitleScene();
 	titleScene->Init();
@@ -27,25 +31,58 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 			break;
 		}
 
-		gameScene->Update();
+		switch (sceneNo) {
+		case TITLE:
+			titleScene->Update();
+			if (Input::GetInstance()->TriggerKey(DIK_SPACE)) {
+				sceneNo = GAME_SCENE;
+			}
+			break;
+
+		case GAME_SCENE:
+			gameScene->Update();
+			break;
+		}
 
 		dxCommon->PreDraw();//描画前処理
 
 		//スプライト描画前処理
 		Sprite::PreDraw(dxCommon->GetCommandList());
-		gameScene->DrawBackGroundSprite();
+		switch (sceneNo) {
+		case TITLE:
+			titleScene->Draw();
+			break;
+
+		case GAME_SCENE:
+			gameScene->DrawBackGroundSprite();
+			break;
+		}
 		//スプライト描画後処理
 		Sprite::PostDraw();
 
 		dxCommon->ClearDepthBuffer();
 
 		Model::PreDraw(dxCommon->GetCommandList());
-		gameScene->DrawModel();
+		switch (sceneNo) {
+		case TITLE:
+			break;
+
+		case GAME_SCENE:
+			gameScene->DrawModel();
+			break;
+		}
 		Model::PostDraw();
 
 		// スプライト描画前処理
 		Sprite::PreDraw(dxCommon->GetCommandList());
-		gameScene->DrawUISprite();
+		switch (sceneNo) {
+		case TITLE:
+			break;
+
+		case GAME_SCENE:
+			gameScene->DrawUISprite();
+			break;
+		}
 		// スプライト描画後処理
 		Sprite::PostDraw();
 
